@@ -8,4 +8,4 @@ with modifications to better fit my workflow and aesthetics.
 
 Writing C++ code:
 
-[](https://github.com/NoelMatero/MyNvimConfig/blob/main/pictures/cpp.png)
+![](https://github.com/NoelMatero/MyNvimConfig/blob/main/pictures/cpp.png)

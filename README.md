@@ -13,3 +13,7 @@ Writing C++ code:
 Writing Rust code:
 
 ![](https://github.com/NoelMatero/MyNvimConfig/blob/main/pictures/rust.png)
+
+Writing JS code:
+
+![](https://github.com/NoelMatero/MyNvimConfig/blob/main/pictures/js.png)

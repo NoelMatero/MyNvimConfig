@@ -17,3 +17,7 @@ Writing Rust code:
 Writing JS code:
 
 ![](https://github.com/NoelMatero/MyNvimConfig/blob/main/pictures/js.png)
+
+## License
+This project is shared under the **MIT License**.  
+Feel free to use it for learning, tinkering, or as inspiration for your own designs.  

@@ -26,3 +26,6 @@ Writing JS code:
 ## License
 This project is shared under the **MIT License**.  
 Feel free to use it for learning, tinkering, or as inspiration for your own designs.  
+
+## Debug
+:lua require("lazy").load({ plugins = { "nvim-lspconfig" } })

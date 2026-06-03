@@ -1,5 +1,7 @@
 # My Neovim Config (NvChad)
 
+Be careful, once you get it working, dont update the dependencies or otherwise nvim will break apart hahaha
+
 This is my personal [NvChad](https://nvchad.com/) configuration.  
 It started as a copy of [ethan-davies/nvchad-config](https://github.com/ethan-davies/nvchad-config),  
 with modifications to better fit my workflow and aesthetics.

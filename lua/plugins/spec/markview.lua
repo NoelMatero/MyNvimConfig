@@ -29,7 +29,9 @@ return {
         },
       },
       markdown = {
-        headings = presets.headings.arrowed,
+        -- `numbered` only overrides icons, so merge it onto `arrowed` to keep
+        -- the label styling while showing section numbers (1., 1.2., 1.2.3.).
+        headings = vim.tbl_deep_extend("force", presets.headings.arrowed, presets.headings.numbered),
         tables = {
           use_virt_lines = true,
         },

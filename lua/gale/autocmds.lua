@@ -27,14 +27,21 @@ autocmd("LspAttach", {
 })
 
 autocmd("FileType", {
-  desc = "Set custom conceal level in markdown files.",
+  desc = "Set reading-friendly options in markdown files.",
   pattern = "markdown",
   callback = function()
-    if vim.bo.ft == "markdown" then
-      vim.opt.conceallevel = 2
-    else
-      vim.opt.conceallevel = 0
-    end
+    vim.opt_local.conceallevel = 2
+    -- Keep soft-wrapped lines aligned with their block, so list and quote
+    -- hierarchy survives wrapping instead of falling back to column 0.
+    vim.opt_local.breakindent = true
+    vim.opt_local.breakindentopt = "list:-1"
+    vim.opt_local.showbreak = "↳ "
+    -- Drop reading chrome; prose does not need a gutter or a ruler.
+    vim.opt_local.colorcolumn = ""
+    vim.opt_local.number = false
+    vim.opt_local.relativenumber = false
+    vim.opt_local.signcolumn = "no"
+    vim.opt_local.foldcolumn = "0"
   end,
 })
 

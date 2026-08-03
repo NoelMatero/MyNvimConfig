@@ -216,6 +216,14 @@ autocmd("User", {
   end,
 })
 
+autocmd("CursorHold", {
+  desc = "Show diagnostic float on cursor hold.",
+  group = augroup("DiagnosticFloat", { clear = true }),
+  callback = function()
+    vim.diagnostic.open_float(nil, { focus = false })
+  end,
+})
+
 autocmd("TermOpen", {
   desc = "Prevent left click on terminal buffers from exiting insert mode.",
   pattern = "*",

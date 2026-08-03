@@ -34,11 +34,10 @@ return {
           use_virt_lines = true,
         },
       },
-      highlight_groups = "dynamic",
-      checkboxes = presets.checkboxes.nerd,
       ---@diagnostic disable-next-line
       markdown_inline = {
         enable = true,
+        checkboxes = presets.checkboxes.nerd,
         ---@diagnostic disable-next-line
         tags = {
           enable = true,

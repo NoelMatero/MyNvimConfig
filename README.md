@@ -7,6 +7,12 @@ git clone https://github.com/NoelMatero/MyNvimConfig/ ~/.config/nvim && nvim
 ```
 Be careful, once you get it working, dont update the dependencies or otherwise nvim will break apart hahaha
 
+## Requirements
+
+- Neovim 0.12+
+- [`tree-sitter` CLI](https://github.com/tree-sitter/tree-sitter) (`brew install tree-sitter-cli`), a C compiler and Node.js, needed to build treesitter parsers.
+  On first launch the parsers install in the background, so give it a minute before opening markdown or code files.
+
 This is my personal [NvChad](https://nvchad.com/) configuration.  
 It started as a copy of [ethan-davies/nvchad-config](https://github.com/ethan-davies/nvchad-config),  
 with modifications to better fit my workflow and aesthetics.

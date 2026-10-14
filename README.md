@@ -1,5 +1,10 @@
 # My Neovim Config (NvChad)
 
+## Download
+
+```
+git clone https://github.com/NoelMatero/MyNvimConfig/ ~/.config/nvim && nvim
+```
 Be careful, once you get it working, dont update the dependencies or otherwise nvim will break apart hahaha
 
 This is my personal [NvChad](https://nvchad.com/) configuration.  

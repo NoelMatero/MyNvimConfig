@@ -1,7 +1,12 @@
 ---@type NvPluginSpec
 return {
   "nvim-treesitter/nvim-treesitter",
-  dependencies = { "nvim-treesitter/nvim-treesitter-textobjects", "nvim-treesitter/playground" },
+  -- NvChad v2.5 targets the `main` rewrite, which no longer reads `highlight`,
+  -- `indent`, etc. Highlighting is started by NvChad's FileType autocmd.
+  branch = "main",
+  -- `main` does not support lazy-loading: its queries must be on the rtp before
+  -- the first FileType event, or the first buffer opened gets no highlighting.
+  lazy = false,
   opts = {
     ensure_installed = {
       "bash",
@@ -17,6 +22,7 @@ return {
       "luadoc",
       "markdown",
       "markdown_inline",
+      "printf",
       "rust",
       "scheme",
       "scss",
@@ -25,49 +31,29 @@ return {
       "vim",
       "vimdoc",
     },
-    auto_install = true,
-    indent = { enable = true },
-    highlight = { enable = true },
-    incremental_selection = {
-      enable = true,
-      keymaps = {
-        init_selection = "<leader>is",
-        node_incremental = "<Tab>",
-        scope_incremental = "<S-s>",
-        node_decremental = "<S-Tab>",
-      },
-    },
-    textobjects = {
-      select = {
-        enable = true,
-        lookahead = true,
-        keymaps = {
-          ["af"] = { query = "@function.outer", desc = "Select around function" },
-          ["if"] = { query = "@function.inner", desc = "Select inner part of function" },
-          ["ac"] = { query = "@class.outer", desc = "Select around class" },
-          ["ic"] = { query = "@class.inner", desc = "Select inner part of class" },
-          ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
-        },
-        selection_modes = {
-          ["@parameter.outer"] = "v",
-          ["@function.outer"] = "V",
-          ["@class.outer"] = "<c-v>",
-        },
-      },
-      swap = {
-        enable = true,
-        swap_next = {
-          ["<leader>wn"] = "@parameter.inner",
-        },
-        swap_previous = {
-          ["<leader>wp"] = "@parameter.inner",
-        },
-      },
-    },
-    query_linter = {
-      enable = true,
-      use_virtual_text = true,
-      lint_events = { "BufWrite", "CursorHold" },
-    },
   },
+  config = function(_, opts)
+    local ts = require "nvim-treesitter"
+    ts.setup()
+
+    -- Install anything missing (async, no-op when already present), so a fresh
+    -- clone gets its parsers without running :TSInstallAll by hand.
+    -- Requires the `tree-sitter` CLI (`brew install tree-sitter-cli`).
+    local missing = vim.tbl_filter(function(lang)
+      return not vim.list_contains(ts.get_installed(), lang)
+    end, opts.ensure_installed)
+    if #missing > 0 then
+      ts.install(missing)
+    end
+
+    vim.api.nvim_create_autocmd("FileType", {
+      desc = "Use treesitter-based indentation.",
+      group = vim.api.nvim_create_augroup("TreesitterIndent", { clear = true }),
+      callback = function(args)
+        if vim.treesitter.language.get_lang(vim.bo[args.buf].filetype) then
+          vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end
+      end,
+    })
+  end,
 }
